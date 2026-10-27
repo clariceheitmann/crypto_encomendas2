@@ -15,7 +15,7 @@ btn_cadastrar.addEventListener('click', (e) =>{
         peso: document.getElementById('peso').value,
         volume: document.getElementById('volume').value,
         codigoRastreio: document.getElementById('codigoRastreio').value,
-        idMotorista: document.getElementById('idMotorista').value
+        codMotorista: document.getElementById('idMotorista').value
     }
 
     fetch(`http://localhost:3000/carga`,{

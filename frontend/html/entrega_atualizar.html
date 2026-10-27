@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style_cad.css">
+    <script src="../js/entrega_atualizar.js" defer></script>
+    <title>Atualizar Entrega</title>
+</head>
+
+<body>
+    <header>
+        <nav><a href="../index.html">Home</a></nav>
+        <br>
+        <hr><br>
+    </header>
+    <main>
+        <h1>Atualizar Entrega</h1>
+        <form>
+            <label for="id">Código da Entrega</label>
+            <input type="text" id="id" required><br><br>
+
+            <label for="cidadeDestino">Cidade Destino</label>
+            <input type="text" id="cidadeDestino" required><br><br>
+
+            <label for="statusAtual">Status Atual</label>
+            <select id="statusAtual" required>
+                <option value="">Escolha</option>
+                <option value="TRANSITO">Trânsito</option>
+                <option value="ENTREGUE">Entregue</option>
+            </select><br><br>
+
+            <label for="data">Data</label>
+            <input type="date" id="data" required><br><br>
+
+            <label for="hora">Hora</label>
+            <input type="time" id="hora" required><br><br>
+
+            <label for="idCarga">Código da Carga</label>
+            <input type="number" id="idCarga" required><br><br>
+
+            <button id="btn_atualizar">Atualizar</button>
+        </form>
+        <div id="resposta" class="resposta"></div>
+    </main>
+</body>
+
+</html>

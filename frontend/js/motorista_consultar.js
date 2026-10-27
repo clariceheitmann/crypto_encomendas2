@@ -12,7 +12,7 @@ btn_consultar.addEventListener('click', (e) =>{
 
     const nome = document.getElementById('nome').value
 
-    fetch(`http://localhost:3000/buscar/motorista/${nome}`,{
+    fetch(`http://localhost:3000/motorista/buscar/${nome}`,{
         method: 'GET',
         headers: {
             'Content-Type' : 'application/json',
@@ -42,7 +42,7 @@ btn_consultar.addEventListener('click', (e) =>{
         }
     })
     .catch((err)=>{
-        motorista.error('Erro ao consultar motorista!',err)
+        console.error('Erro ao consultar motorista!',err)
         resposta.innerHTML = '<p>Erro ao consultar motorista!</p>'
     })
 })

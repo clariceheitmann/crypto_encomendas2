@@ -10,7 +10,7 @@ const resposta = document.getElementById('resposta')
 btn_listar.addEventListener('click', (e) =>{
     e.preventDefault()
 
-    fetch(`http://localhost:3000/buscar/motoristas`,{
+    fetch(`http://localhost:3000/motoristas`,{
         method: 'GET',
         headers: {
             'Content-Type' : 'application/json',
@@ -40,7 +40,7 @@ btn_listar.addEventListener('click', (e) =>{
         }
     })
     .catch((err)=>{
-        motorista.error('Erro ao listar motoristas!',err)
+        console.error('Erro ao listar motoristas!',err)
         resposta.innerHTML = '<p>Erro ao listar motoristas!</p>'
     })
 })

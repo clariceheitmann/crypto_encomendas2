@@ -10,6 +10,8 @@ const resposta = document.getElementById('resposta')
 btn_atualizar.addEventListener('click', (e) =>{
     e.preventDefault()
 
+    const id = document.getElementById('id').value
+
     const valores = {
         cidadeDestino: document.getElementById('cidadeDestino').value,
         statusAtual: document.getElementById('statusAtual').value,
@@ -18,7 +20,7 @@ btn_atualizar.addEventListener('click', (e) =>{
         idCarga: document.getElementById('idCarga').value
     }
 
-    fetch(`http://localhost:3000/entrega`,{
+    fetch(`http://localhost:3000/entrega/${id}`,{
         method: 'PUT',
         headers: {
             'Content-Type' : 'application/json',

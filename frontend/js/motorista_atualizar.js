@@ -41,7 +41,7 @@ btn_atualizar.addEventListener('click', (e) =>{
         document.querySelector('form').reset()
     })
     .catch((err)=>{
-        motorista.error('Erro ao atualizar motorista!',err)
+        console.error('Erro ao atualizar motorista!',err)
         resposta.innerHTML = '<p>Erro ao atualizar motorista!</p>'
     })
 })

@@ -41,7 +41,7 @@ btn_apagar.addEventListener('click', (e) =>{
         document.querySelector('form').reset()
     })
     .catch((err)=>{
-        motorista.error('Erro ao apagar motorista!',err)
+        console.error('Erro ao apagar motorista!',err)
         resposta.innerHTML = '<p>Erro ao apagar motorista!</p>'
     })
 })
