@@ -38,16 +38,20 @@ const listar = async(req,res) =>{
         motoristas.forEach((el)=>{
             let cnhDescriptografada = ''
             let cpfDescriptografado = ''
+
             try{
-                const bytes = CryptoJS.AES.decrypt(el.cnh, el.cpf, CHAVE_SECRETA)
-                cnhDescriptografada = bytes.toString(CryptoJS.enc.Utf8)
-                cpfDescriptografado = bytes.toString(CryptoJS.enc.Utf8)
+                const bytesCNH = CryptoJS.AES.decrypt(el.cnh, CHAVE_SECRETA)
+                cnhDescriptografada = bytesCNH.toString(CryptoJS.enc.Utf8)
+
+                const bytesCPF = CryptoJS.AES.decrypt(el.cpf, CHAVE_SECRETA)
+                cpfDescriptografado = bytesCPF.toString(CryptoJS.enc.Utf8)
+
             }catch(err){
                 cnhDescriptografada = 'Erro ao descriptografar CNH!'
-                console.error(cnhDescriptografada)
-                cpfDescriptografado = 'Erro ao descriptografar CPf!'
-                console.error(cpfDescriptografado)
+                cpfDescriptografado = 'Erro ao descriptografar CPF!'
+                console.error('Erro ao descriptografar os dados:', err)
             }
+
             resultado.push({
                 codMotorista: el.codMotorista,
                 nome: el.nome,
@@ -56,7 +60,9 @@ const listar = async(req,res) =>{
                 telefone: el.telefone
             })
         })
+
         return res.status(200).json(resultado)
+
     }catch(err){
         console.error('Erro ao listar motoristas!',err)
         res.status(500).json({message: 'Erro ao listar motoristas!'})
@@ -68,36 +74,18 @@ const consultarNome = async (req, res) => {
     const nome = req.params.nome
 
     try {
-        // Busca o motorista pelo nome
-        const motorista = await Motorista.findOne({
-            where: { nome: nome }
-        })
+        const motorista = await Motorista.findOne({where: { nome: nome }})
 
         if (!motorista) {
-            return res.status(404).json({
-                message: 'Motorista não encontrado!'
-            })
+            return res.status(404).json({message: 'Motorista não encontrado!'})
         }
 
-        // Descriptografa a CNH
-        const bytesCNH = CryptoJS.AES.decrypt(
-            motorista.cnh,
-            CHAVE_SECRETA
-        )
-        const cnhDescriptografada = bytesCNH.toString(
-            CryptoJS.enc.Utf8
-        )
+        const bytesCNH = CryptoJS.AES.decrypt(motorista.cnh,CHAVE_SECRETA)
+        const cnhDescriptografada = bytesCNH.toString(CryptoJS.enc.Utf8)
 
-        // Descriptografa o CPF separadamente
-        const bytesCPF = CryptoJS.AES.decrypt(
-            motorista.cpf,
-            CHAVE_SECRETA
-        )
-        const cpfDescriptografado = bytesCPF.toString(
-            CryptoJS.enc.Utf8
-        )
+        const bytesCPF = CryptoJS.AES.decrypt(motorista.cpf,CHAVE_SECRETA)
+        const cpfDescriptografado = bytesCPF.toString(CryptoJS.enc.Utf8)
 
-        // Retorna os dados do motorista
         return res.status(200).json({
             codMotorista: motorista.codMotorista,
             nome: motorista.nome,
@@ -108,12 +96,9 @@ const consultarNome = async (req, res) => {
 
     } catch (err) {
         console.error('Erro ao consultar motorista!', err)
-        return res.status(500).json({
-            message: 'Erro ao consultar motorista!'
-        })
+        return res.status(500).json({message: 'Erro ao consultar motorista!'})
     }
 }
-
 
 const atualizar = async(req,res) =>{
     const valores = req.body 
